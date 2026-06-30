@@ -1,0 +1,56 @@
+# python
+*.pyc
+**/__pycache__/
+.pytest_cache/*
+.pydevproject
+*.egg-info/
+
+# IDE
+.vscode/*
+.idea/
+.DS_Store
+
+# Pip
+*.egg-info
+
+# Logs and local runtime outputs
+*.log
+*.out
+*.err
+training_log.txt
+ms-swift/training_log.txt
+
+# Serialized runtime artifacts
+*.pkl
+*.pickle
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+*.npz
+
+# Visualization/debug outputs
+*.pcd
+grounding_vis/
+qwen_grounding_vis/
+qwen_geo_similarity_vis/
+ms-swift/vggt_depth_vis/
+
+# Generated NAVSIM jsonl data dumps
+navsim_traj_front_view*.jsonl
+*_infer.jsonl
+*_train.jsonl
+*_val.jsonl
+
+# Training/evaluation output directories
+work_dirs/
+outputs/
+output/
+runs/
+wandb/
+tensorboard/
+
+# Local wheel/cache files
+*.whl
+flash_attn-2.8.3+cu12torch2.5cxx11abiFALSE-cp39-cp39-linux_x86_64.whl

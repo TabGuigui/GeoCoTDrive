@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RELEASE_ROOT="$(cd "$PROJECT_DIR/.." && pwd)"
+cd "$PROJECT_DIR"
+
+CONFIG="${CONFIG:-projects/configs/GeoCoT/geocotdrive_vlm_geocot.py}"
+GPUS="${GPUS:-8}"
+WORK_DIR="${WORK_DIR:-../work_dirs/geocotdrive_stage3}"
+DATA_ROOT="${DATA_ROOT:-$RELEASE_ROOT/data/nuscenes}"
+CKPT_ROOT="${CKPT_ROOT:-$RELEASE_ROOT/ckpts}"
+GROUNDING_ROOT="${GROUNDING_ROOT:-$RELEASE_ROOT/grounding}"
+LLM_DIR="${LLM_DIR:-$CKPT_ROOT/llava-1.5-7b-hf-with-new-special-tokens}"
+DEPTH_DIR="${DEPTH_DIR:-$CKPT_ROOT/DA3METRIC-LARGE}"
+LOAD_FROM="${LOAD_FROM:-$CKPT_ROOT/geocotdrive_vlm_grounding_stage2/iter_21096.pth}"
+
+export PYTHONPATH="$PROJECT_DIR:${PYTHONPATH:-}"
+
+cfg_options=(
+  "data_root=$DATA_ROOT/"
+  "depth_path=$DEPTH_DIR"
+  "llm_path=$LLM_DIR/"
+  "tokenizer_path=$LLM_DIR/"
+  "model.tokenizer=$LLM_DIR/"
+  "model.processor=$LLM_DIR/"
+  "model.lm_head=$LLM_DIR/"
+  "model.depth_path=$DEPTH_DIR"
+  "train_pipeline.2.base_plan_grounding_path=$GROUNDING_ROOT"
+  "train_pipeline.8.base_vqa_path=$DATA_ROOT/vqa/train/"
+  "train_pipeline.8.base_desc_path=$DATA_ROOT/desc/train/"
+  "train_pipeline.8.base_conv_path=$DATA_ROOT/conv/train/"
+  "train_pipeline.8.base_key_path=$DATA_ROOT/keywords/train/"
+  "train_pipeline.8.tokenizer=$LLM_DIR/"
+  "train_pipeline.8.processor=$LLM_DIR/"
+  "train_pipeline.8.lane_objs_info=$DATA_ROOT/lane_obj_train.pkl"
+  "test_pipeline.5.base_vqa_path=$DATA_ROOT/vqa/val/"
+  "test_pipeline.5.base_conv_path=$DATA_ROOT/conv/val/"
+  "test_pipeline.5.base_counter_path=$DATA_ROOT/eval_cf/"
+  "test_pipeline.5.tokenizer=$LLM_DIR/"
+  "test_pipeline.5.processor=$LLM_DIR/"
+  "data.train.data_root=$DATA_ROOT/"
+  "data.train.ann_file=$DATA_ROOT/nuscenes2d_ego_temporal_infos_train_with_command_desc.pkl"
+  "data.val.data_root=$DATA_ROOT/"
+  "data.val.ann_file=$DATA_ROOT/nuscenes2d_ego_temporal_infos_val_with_command_desc.pkl"
+  "data.test.data_root=$DATA_ROOT/"
+  "data.test.ann_file=$DATA_ROOT/nuscenes2d_ego_temporal_infos_val_with_command_desc.pkl"
+  "load_from=$LOAD_FROM"
+)
+
+bash tools/dist_train.sh "$CONFIG" "$GPUS" --work-dir "$WORK_DIR" --cfg-options "${cfg_options[@]}" "$@"

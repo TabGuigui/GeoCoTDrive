@@ -1,0 +1,4 @@
+defaults:
+  - scene_filter: grpo_train300
+
+data_split: trainval

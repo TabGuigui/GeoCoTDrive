@@ -1,0 +1,22 @@
+# Core runtime pins used by GeoCoTDrive. Install the matching torch/mmcv wheels for your CUDA version first.
+flash-attn==2.5.6
+transformers==4.31.0
+accelerate
+peft
+tokenizers
+sentencepiece
+numpy
+scipy
+pandas
+Pillow
+opencv-python
+matplotlib
+shapely
+pyquaternion
+nuscenes-devkit
+tqdm
+einops
+
+# OpenMMLab stack used by the vendored mmdetection3d-1.0 tree.
+mmdet==2.28.1
+mmsegmentation==0.30.0

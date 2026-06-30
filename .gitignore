@@ -1,0 +1,47 @@
+**__pycache__**
+/ckpts/
+/data/
+grounding/
+onnxs/
+onnxs_data/
+test/
+engines/
+hide/
+results_planning_only*/
+deploy/llm_lib/llm_checkpoint*/
+deploy/llm_lib/llm_engine*/
+deploy/llm_lib/llm_safetensor*/
+results/
+geocotdrive_nuscenes/OpenLane-V2
+
+.vscode
+*.ignore
+*.onnx
+*.engine
+*.nsys-rep
+*.tmp
+*.log
+*.pyc
+
+# Runtime artifacts
+work_dirs/
+work_dirs*/
+work_dirs_gc/
+tools/visual_geocotdrive/
+.dist_test/
+
+# Model and data artifacts
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+*.pkl
+*.pickle
+*.npz
+
+# Local Python/tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/

@@ -1,0 +1,80 @@
+
+
+hydra:
+  run:
+    dir: ${output_dir}
+  output_subdir: ${output_dir}/code/hydra           # Store hydra's config breakdown here for debugging
+  searchpath:                                       # Only <exp_dir> in these paths are discoverable
+    - pkg://navsim.planning.script.config.common
+  job:
+    chdir: False
+
+defaults:
+  - default_common
+  - default_evaluation
+  - default_train_val_test_log_split
+  - agent: recogdrive_agent
+  - _self_
+
+split: trainval
+train_test_split: navtrain
+cache_path: ${oc.env:NAVSIM_EXP_ROOT}/training_cache_transfuser
+use_cache_without_dataset: false # load the training samples from the cache. scene-filter will be ignored
+force_cache_computation: true
+seed: 0
+# ----------------------------------------------------------------
+# │ 2. 数据集配置 (Dataset Configuration)                          │
+# ----------------------------------------------------------------
+
+training:
+  # 这些参数将直接传递给 transformers.TrainingArguments
+  num_train_epochs: 50
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  
+  # 优化器和学习率调度器
+  learning_rate: 1e-4      # 对应 agent.lr
+  weight_decay: 1e-4 
+  adam_beta1: 0.9      # <-- ADD THIS LINE
+  adam_beta2: 0.95      # <-- ADD THIS LINE
+  warmup_steps: 3000 
+  lr_scheduler_type: "cosine"
+  # 日志、保存和评估策略
+  logging_strategy: "steps"
+  logging_steps: 50
+  evaluation_strategy: "epoch"
+  save_strategy: "epoch"
+  save_total_limit: 5 # 最多保留5个检查点
+  load_best_model_at_end: True
+  metric_for_best_model: "eval_loss"
+  greater_is_better: False
+
+  # 硬件和分布式训练
+  fp16: True 
+  bf16: False 
+  dataloader_num_workers: 32
+
+  # --- DeepSpeed 配置 ---
+  # 这里指定了 DeepSpeed 配置文件的路径
+  deepspeed: /high_perf_store3/world-model/yongkangli/data/NAVSIM/navsim-main/scripts/training/zero_stage1_config.json
+
+agent:
+  _target_: navsim.agents.recogdrive.recogdrive_agent.ReCogDriveAgent
+  _convert_: 'all'
+
+  trajectory_sampling:
+    _target_: nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling
+    _convert_: 'all'
+    time_horizon: 4
+    interval_length: 0.5
+  checkpoint_path: ''
+  vlm_path: ''
+  cam_type: 'single'
+  vlm_type: 'internvl'
+  dit_type: 'small'
+  sampling_method: 'ddim'
+  cache_mode: False
+  cache_hidden_state: True
+  use_prompt_tuning: False
+  grpo: False
+  lr: 1e-4

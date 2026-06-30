@@ -1,0 +1,4 @@
+defaults:
+  - scene_filter: v20_dac_zero
+
+data_split: test
