@@ -1,8 +1,6 @@
 <div align="center">
 
-<h1>GeoCoTDrive</h1>
-
-<h2>Explicit Geometric Chain-of-Thought for Vision-Language-Action in Autonomous Driving</h2>
+<h1>Explicit Geometric Chain-of-Thought for Vision-Language-Action in Autonomous Driving</h1>
 
 <p>
   Xingtai Gui<sup>1</sup>, Yucheng Zhou<sup>1</sup>, Dongqian Guo<sup>1</sup>,
@@ -23,7 +21,7 @@ Vision-language-action (VLA) models have emerged as a promising paradigm for aut
 
 <div align="center">
 <a href="./assets/main_camera.pdf">
-  <img src="./assets/main_camera.png" alt="GeoCoTDrive method overview" width="60%">
+  <img src="./assets/main_camera.png" alt="GeoCoTDrive method overview" width="90%">
 </a>
 </div>
 
@@ -31,12 +29,12 @@ Vision-language-action (VLA) models have emerged as a promising paradigm for aut
 
 ## News
 
-- **[2026.10.8]** GeoCoTDrive code release.
+- **[2026.10.8]** GeoCoTDrive code and checkpoints release.
 
 ## TODO
 
-- Release checkpoints.
 - Release the PlanningGrounding dataset.
+- Release training scripts.
 
 ## Table of Contents
 
@@ -77,12 +75,10 @@ The additional PlanningGrounding dataset will be released later.
 
 ## Quick Evaluation
 
-Run from the repository root after following the corresponding setup guide.
-
 ### nuScenes
 
 ```bash
-CKPT="$PWD/ckpts/geocotdrive_nuscenes/iter_21096.pth" bash geocotdrive_nuscenes/scripts/eval_geocotdrive.sh
+CKPT="$PWD/ckpts/geocotdrive_nuscenes/geocotdrive_nus.pth" bash geocotdrive_nuscenes/scripts/eval_geocotdrive.sh
 ```
 
 ### NAVSIM
