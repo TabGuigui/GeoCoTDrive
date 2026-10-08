@@ -13,6 +13,12 @@
   <sup>*</sup>Corresponding author
 </p>
 
+<p>
+  <a href="https://arxiv.org/abs/2610.10390"><img src="https://img.shields.io/badge/arXiv-2610.10390-b31b1b?logo=arxiv&logoColor=white" alt="arXiv paper"></a>
+  <a href="https://huggingface.co/tabguigui/geocotdrive_nuscenes"><img src="https://img.shields.io/badge/Hugging%20Face-nuScenes-FFD21E?logo=huggingface&logoColor=black" alt="nuScenes checkpoint on Hugging Face"></a>
+  <a href="https://huggingface.co/tabguigui/geocotdrive_stage2"><img src="https://img.shields.io/badge/Hugging%20Face-NAVSIM-FFD21E?logo=huggingface&logoColor=black" alt="NAVSIM checkpoint on Hugging Face"></a>
+</p>
+
 </div>
 
 ## Abstract
@@ -30,6 +36,7 @@ Vision-language-action (VLA) models have emerged as a promising paradigm for aut
 ## News
 
 - **[2026.10.8]** GeoCoTDrive code and checkpoints release.
+- **[2026.10.8]** GeoCoTDrive [paper](https://arxiv.org/abs/2610.10390) released on arXiv.
 
 ## TODO
 
@@ -46,6 +53,7 @@ Vision-language-action (VLA) models have emerged as a promising paradigm for aut
 - [Quick Evaluation](#quick-evaluation)
 - [Visualize GeoCoTDrive](#visualize-geocotdrive)
 - [Acknowledgement](#acknowledgement)
+- [Related Work](#related-work)
 - [Citation](#citation)
 
 ---
@@ -106,6 +114,25 @@ GeoCoTDrive benefits from the following open-source projects:
 
 We thank their authors and contributors for sharing their work.
 
+## Related Work
+
+Other open-source end-to-end autonomous driving projects from SKL-IOTSC, University of Macau:
+
+- [WorldDrive](https://github.com/TabGuigui/WorldDrive) unifies vision and motion representations to connect driving scene generation with trajectory planning.
+- [TrajDiff](https://github.com/TabGuigui/TrajDiff) uses trajectory-oriented BEV features and diffusion to plan without perception annotations.
+
 ## Citation
 
-If GeoCoTDrive is helpful for your research, please consider citing it. A BibTeX entry will be added when the paper metadata is finalized.
+If GeoCoTDrive is helpful for your research, please consider citing it:
+
+```bibtex
+@misc{gui2026explicitgeometricchainofthoughtvisionlanguageaction,
+  title={Explicit Geometric Chain-of-Thought for Vision-Language-Action in Autonomous Driving},
+  author={Xingtai Gui and Yucheng Zhou and Dongqian Guo and Jiahao Gong and Feiyang Tan and Jianbing Shen},
+  year={2026},
+  eprint={2610.10390},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.10390},
+}
+```
